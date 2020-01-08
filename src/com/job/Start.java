@@ -1,4 +1,4 @@
-package com.task;
+package com.job;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
