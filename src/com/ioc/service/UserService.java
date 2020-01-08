@@ -1,7 +1,7 @@
-package com.xxx.service;
+package com.ioc.service;
 
-import com.xxx.dao.UserDao;
-import com.xxx.entity.User;
+import com.ioc.dao.UserDao;
+import com.ioc.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
