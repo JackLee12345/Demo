@@ -6,7 +6,7 @@
                         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
                          http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
 
-    <bean id="initDataJob" class="com.tak.InitDataJob" init-method="init"></bean>
+    <bean id="initDataJob" class="com.task.InitDataJob" init-method="init"></bean>
 
     <task:scheduler id="taskScheduler" pool-size="2"/>
 
