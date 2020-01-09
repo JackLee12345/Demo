@@ -1,4 +1,4 @@
-package com.communication;
+package com.communication.http;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -18,31 +18,36 @@ public class Server {
 
     private ChannelInitializer<SocketChannel> channelInitializer;
 
-    public Server(int port,ChannelInitializer channelInitializer,EventLoopGroup work,EventLoopGroup boss){
+    public Server(int port, ChannelInitializer channelInitializer, EventLoopGroup work, EventLoopGroup boss) {
         this.port = port;
         this.channelInitializer = channelInitializer;
         this.work = work;
         this.boss = boss;
     }
 
-    public void start(){
+    public void start() {
         ServerBootstrap b = new ServerBootstrap();
-        try{
-            b.group(boss,work)
+        try {
+            b.group(boss, work)
                     .channel(NioServerSocketChannel.class)
-//                    .localAddress(port)
+                    .localAddress(port)
                     .childHandler(channelInitializer)
-                    .childOption(ChannelOption.SO_KEEPALIVE,true)
-                    .childOption(ChannelOption.SO_LINGER,-1)
-                    .childOption(ChannelOption.TCP_NODELAY,true);
+                    .childOption(ChannelOption.SO_KEEPALIVE, true)
+                    .childOption(ChannelOption.SO_BACKLOG, 1024)
+                    // 阻塞close()的调用时间，直到数据完全发送
+                    .childOption(ChannelOption.SO_LINGER, -1)
+                    .childOption(ChannelOption.TCP_NODELAY, true);
 
             // 绑定端口
             ChannelFuture channelFuture = b.bind(port).sync();
             System.out.println("Server start ...");
-            // 等待服务端关闭
+            // 等待服务端关闭 阻塞
             channelFuture.channel().closeFuture().sync();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            work.shutdownGracefully();
+            boss.shutdownGracefully();
         }
     }
 }
