@@ -24,7 +24,6 @@ public class ReqBizHandler extends ChannelInboundHandlerAdapter {
                 ByteBuf buf = req.content();
                 String content = buf.toString(CharsetUtil.UTF_8);
                 HttpMethod method = req.method();
-                HttpHeaders headers = req.headers();
                 if (method.equals(HttpMethod.POST)) {
                     Content c = new Content();
                     c.setContent(content);
@@ -35,7 +34,6 @@ public class ReqBizHandler extends ChannelInboundHandlerAdapter {
                 req.release();
             }
         }
-        System.out.println("读数据。。。");
     }
 
     private void response(ChannelHandlerContext ctx, Content c) {
@@ -45,15 +43,27 @@ public class ReqBizHandler extends ChannelInboundHandlerAdapter {
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
     }
 
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("连接成功 ...");
-        super.channelActive(ctx);
-    }
+//    @Override
+//    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+//        System.out.println("连接成功 ...");
+//        super.channelActive(ctx);
+//    }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         super.exceptionCaught(ctx, cause);
+    }
+
+    @Override
+    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("register successful。。。");
+        super.channelRegistered(ctx);
+    }
+
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("读数据。。。");
+        super.channelReadComplete(ctx);
     }
 
     class Content {

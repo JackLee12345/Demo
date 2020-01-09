@@ -37,7 +37,6 @@ public class Server {
                     // 阻塞close()的调用时间，直到数据完全发送
                     .childOption(ChannelOption.SO_LINGER, -1)
                     .childOption(ChannelOption.TCP_NODELAY, true);
-
             // 绑定端口
             ChannelFuture channelFuture = b.bind(port).sync();
             System.out.println("Server start ...");
