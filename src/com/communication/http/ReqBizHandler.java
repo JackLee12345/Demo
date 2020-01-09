@@ -31,7 +31,7 @@ public class ReqBizHandler extends ChannelInboundHandlerAdapter {
                     response(ctx, c);
                 }
             } finally {
-                req.release();
+//                req.release();
             }
         }
     }
@@ -40,6 +40,7 @@ public class ReqBizHandler extends ChannelInboundHandlerAdapter {
         System.out.println("发送数据。。。");
         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.copiedBuffer(JSONObject.toJSONString(c), CharsetUtil.UTF_8));
         response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html;charset = UTF-8");
+        response.headers().set(HttpHeaderNames.KEEP_ALIVE, "Connection: keep-alive");
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
     }
 
