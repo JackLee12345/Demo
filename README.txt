@@ -13,3 +13,6 @@ https://www.infoq.cn/article/netty-million-level-push-service-design-points/
 
 
 https://zhanjindong.com/archives/
+
+心跳检测
+https://www.cnblogs.com/demingblog/p/9957143.html
