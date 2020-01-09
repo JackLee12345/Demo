@@ -8,4 +8,8 @@ https://www.cnblogs.com/carl10086/p/6185095.html
 林峰的关于netty文章
 https://my.oschina.net/greki/blog/653204
 Netty 系列之 Netty 百万级推送服务设计要点
+https://www.cnblogs.com/hutao722/articles/5587650.html
 https://www.infoq.cn/article/netty-million-level-push-service-design-points/
+
+
+https://zhanjindong.com/archives/
