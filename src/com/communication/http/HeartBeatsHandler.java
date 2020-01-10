@@ -31,11 +31,10 @@ public class HeartBeatsHandler extends ChannelInboundHandlerAdapter {
             String hbc = buf.toString(CharsetUtil.UTF_8);
             if (HEATRBEATS.equals(hbc)) {
                 Content c = new Content();
-                c.setContent("Copy that。。。");
+                c.setContent("Copy that。。。\\r\\n");
                 FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.copiedBuffer(JSONObject.toJSONString(c), CharsetUtil.UTF_8));
                 response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html;charset = UTF-8");
                 ctx.writeAndFlush(response);
-//                ctx.channel().close();
             } else {
                 logger.info("do business 。。。");
                 super.channelRead(ctx, msg);

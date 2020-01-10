@@ -29,7 +29,7 @@ public class HTTPChannelInitializer extends ChannelInitializer<SocketChannel> {
         socketChannel.pipeline().addLast("http-encoder", new HttpResponseEncoder());
         // 解决大码流的问题，ChunkedWriteHandler：向客户端发送HTML5文件
         socketChannel.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
-        socketChannel.pipeline().addLast(new IdleStateHandler(2,2,2, TimeUnit.SECONDS));
+        socketChannel.pipeline().addLast(new IdleStateHandler(5,0,0, TimeUnit.SECONDS));
         socketChannel.pipeline().addLast(new HeartBeatsHandler());
         // 业务处理
         socketChannel.pipeline().addLast(new ReqBizHandler());
