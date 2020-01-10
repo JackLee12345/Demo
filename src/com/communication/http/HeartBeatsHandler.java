@@ -6,7 +6,6 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.*;
-import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
@@ -36,8 +35,7 @@ public class HeartBeatsHandler extends ChannelInboundHandlerAdapter {
                 FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.copiedBuffer(JSONObject.toJSONString(c), CharsetUtil.UTF_8));
                 response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html;charset = UTF-8");
                 ctx.writeAndFlush(response);
-                // close后发送
-                ctx.channel().close();
+//                ctx.channel().close();
             } else {
                 logger.info("do business 。。。");
                 super.channelRead(ctx, msg);
@@ -65,8 +63,13 @@ public class HeartBeatsHandler extends ChannelInboundHandlerAdapter {
         }
         logger.info(ctx.channel().remoteAddress() + "超时时间 = " + eventType);
         if (readIdleTimes > 3) {
-
+            logger.info(" Server 都读空闲超过三次，连接关闭！");
+            Content c = new Content();
+            c.setContent("Server 都读空闲超过三次，连接关闭！");
+            FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.copiedBuffer(JSONObject.toJSONString(c), CharsetUtil.UTF_8));
+            response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html;charset = UTF-8");
+            ctx.writeAndFlush(response);
+            ctx.channel().close();
         }
-        super.userEventTriggered(ctx, evt);
     }
 }
