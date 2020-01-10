@@ -1,4 +1,4 @@
-package com.communication.http;
+package communication.http;
 
 import com.alibaba.fastjson.JSONObject;
 import io.netty.buffer.ByteBuf;
@@ -8,15 +8,18 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author user
  */
 public class ReqBizHandler extends ChannelInboundHandlerAdapter {
 
+    private Logger logger = LoggerFactory.getLogger(ReqBizHandler.class);
+
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        System.out.println(msg);
         if (msg instanceof FullHttpRequest) {
             FullHttpRequest req = (FullHttpRequest) msg;
             try {
@@ -37,7 +40,7 @@ public class ReqBizHandler extends ChannelInboundHandlerAdapter {
     }
 
     private void response(ChannelHandlerContext ctx, Content c) {
-        System.out.println("发送数据。。。");
+        logger.info("send data 。。。");
         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.copiedBuffer(JSONObject.toJSONString(c), CharsetUtil.UTF_8));
         response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html;charset = UTF-8");
         response.headers().set(HttpHeaderNames.KEEP_ALIVE, "Connection: keep-alive");
@@ -57,13 +60,13 @@ public class ReqBizHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("register successful。。。");
+        logger.info("register successful。。。");
         super.channelRegistered(ctx);
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("读数据。。。");
+       logger.info("read complete。。。");
         super.channelReadComplete(ctx);
     }
 

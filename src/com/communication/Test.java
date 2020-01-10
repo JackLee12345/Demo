@@ -1,7 +1,7 @@
-package com.communication;
+package communication;
 
-import com.communication.http.HTTPChannelInitializer;
-import com.communication.http.Server;
+import communication.http.HTTPChannelInitializer;
+import communication.http.Server;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 

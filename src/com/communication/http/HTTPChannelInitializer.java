@@ -1,11 +1,12 @@
-package com.communication.http;
+package communication.http;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
-import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
 /**
@@ -15,6 +16,7 @@ public class HTTPChannelInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
     protected void initChannel(SocketChannel socketChannel) {
+        socketChannel.pipeline().addLast("logging",new LoggingHandler(LogLevel.INFO));
         // 请求解码器
         socketChannel.pipeline().addLast("http-decoder", new HttpRequestDecoder());
         // 将HTTP消息的多个部分合成一条完整的HTTP消息

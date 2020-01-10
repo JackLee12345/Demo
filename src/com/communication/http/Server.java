@@ -1,4 +1,4 @@
-package com.communication.http;
+package communication.http;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -7,8 +7,12 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Server {
+
+    Logger logger = LoggerFactory.getLogger(Server.class);
 
     private int port;
 
@@ -39,7 +43,7 @@ public class Server {
                     .childOption(ChannelOption.TCP_NODELAY, true);
             // 绑定端口
             ChannelFuture channelFuture = b.bind(port).sync();
-            System.out.println("Server start ...");
+            logger.info("Server start ...");
             // 等待服务端关闭 阻塞
             channelFuture.channel().closeFuture().sync();
         } catch (Exception e) {
