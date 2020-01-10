@@ -1,6 +1,7 @@
-package com.ioc;
+package ioc;
 
-import com.ioc.service.UserService;
+import ioc.Config;
+import ioc.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Test {

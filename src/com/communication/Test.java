@@ -5,6 +5,9 @@ import communication.http.Server;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 
+/**
+ * @author user
+ */
 public class Test {
 
     public static void main(String[] args) {

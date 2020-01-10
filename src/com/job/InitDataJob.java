@@ -1,4 +1,4 @@
-package com.job;
+package job;
 
 import org.springframework.stereotype.Service;
 import java.util.Date;

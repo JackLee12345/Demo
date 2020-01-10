@@ -1,4 +1,4 @@
-package com.ioc;
+package ioc;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

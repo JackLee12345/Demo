@@ -11,9 +11,7 @@ import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author user
- */
+
 public class ReqBizHandler extends ChannelInboundHandlerAdapter {
 
     private Logger logger = LoggerFactory.getLogger(ReqBizHandler.class);
@@ -34,7 +32,7 @@ public class ReqBizHandler extends ChannelInboundHandlerAdapter {
                     response(ctx, c);
                 }
             } finally {
-//                req.release();
+                req.release();
             }
         }
     }
@@ -43,15 +41,8 @@ public class ReqBizHandler extends ChannelInboundHandlerAdapter {
         logger.info("send data 。。。");
         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.copiedBuffer(JSONObject.toJSONString(c), CharsetUtil.UTF_8));
         response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html;charset = UTF-8");
-        response.headers().set(HttpHeaderNames.KEEP_ALIVE, "Connection: keep-alive");
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
     }
-
-//    @Override
-//    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-//        System.out.println("连接成功 ...");
-//        super.channelActive(ctx);
-//    }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
@@ -68,26 +59,5 @@ public class ReqBizHandler extends ChannelInboundHandlerAdapter {
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
        logger.info("read complete。。。");
         super.channelReadComplete(ctx);
-    }
-
-    class Content {
-        String uri;
-        String content;
-
-        public String getUri() {
-            return uri;
-        }
-
-        public void setUri(String uri) {
-            this.uri = uri;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
     }
 }

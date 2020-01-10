@@ -8,6 +8,9 @@ import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.handler.timeout.IdleStateHandler;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author user
@@ -16,6 +19,7 @@ public class HTTPChannelInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
     protected void initChannel(SocketChannel socketChannel) {
+        // 可以对入站\出站事件进行日志记录，从而方便我们进行问题排查。
         socketChannel.pipeline().addLast("logging",new LoggingHandler(LogLevel.INFO));
         // 请求解码器
         socketChannel.pipeline().addLast("http-decoder", new HttpRequestDecoder());
@@ -25,6 +29,8 @@ public class HTTPChannelInitializer extends ChannelInitializer<SocketChannel> {
         socketChannel.pipeline().addLast("http-encoder", new HttpResponseEncoder());
         // 解决大码流的问题，ChunkedWriteHandler：向客户端发送HTML5文件
         socketChannel.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
+        socketChannel.pipeline().addLast(new IdleStateHandler(2,2,2, TimeUnit.SECONDS));
+        socketChannel.pipeline().addLast(new HeartBeatsHandler());
         // 业务处理
         socketChannel.pipeline().addLast(new ReqBizHandler());
     }

@@ -1,4 +1,4 @@
-package com.communication.http;
+package communication.http;
 
 public class RequestBean {
 

@@ -1,4 +1,4 @@
-package com.ioc.entity;
+package ioc.entity;
 
 public class User {
 

@@ -1,6 +1,6 @@
-package com.ioc.dao;
+package ioc.dao;
 
-import com.ioc.entity.User;
+import ioc.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
