@@ -5,7 +5,9 @@ package leetcode;
  */
 public class TwoSum {
     public static void main(String[] args) {
-        
+        int[] arr = new int[]{2,7,11,19};
+        int total = 9;
+
     }
 
 }
