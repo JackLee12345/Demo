@@ -16,3 +16,13 @@ https://zhanjindong.com/archives/
 
 心跳检测
 https://www.cnblogs.com/demingblog/p/9957143.html
+
+TCP 协议
+https://www.cnblogs.com/xcywt/p/8075623.html
+滑动窗口协议
+http://blog.chinaunix.net/uid-26275986-id-4109679.html
+https://www.cnblogs.com/findumars/p/9085494.html
+
+Thread
+https://blog.csdn.net/zhao1299002788/article/details/90215541
+
