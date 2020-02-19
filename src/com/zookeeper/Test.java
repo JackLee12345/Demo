@@ -7,5 +7,6 @@ public class Test {
         System.out.println("新建分支");
         System.out.println("2222");
         System.out.println("3333");
+        System.out.println("4444");
     }
 }
